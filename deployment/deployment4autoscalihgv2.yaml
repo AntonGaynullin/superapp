@@ -1,0 +1,44 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: my-web-deploy-autoscaling
+  labels:
+    app : my-k8s-mywebsit
+    owner: AntonGainullin
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      project: mywebsaut
+  template:
+    metadata:
+      labels:
+        project: mywebsaut
+    spec:
+      containers:
+        - name : myweb1aut
+          image: antongaynullin/mywebsit:latest
+          ports:
+            - containerPort: 8080
+
+---
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: my-autoscaling
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v2beta2
+    kind: Deployment
+    name: my-web-deployment-autoscaling
+  minReplicas: 2
+  maxReplicas: 6
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      targetAverageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      targetAverageUtilization: 80

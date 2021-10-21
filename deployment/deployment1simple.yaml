@@ -1,0 +1,20 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: my-web-deployment
+  labels:
+    app : my-k8s-mywebsit
+spec:
+  selector:
+    matchLabels:
+      project: mywebs
+  template:
+    metadata:
+      labels:
+        project: mywebs
+    spec:
+      containers:
+        - name : myweb1
+          image: antongaynullin/mywebsit:latest
+          ports:
+            - containerPort: 8080

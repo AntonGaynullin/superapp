@@ -1,0 +1,22 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: my-web-deploy-replicas
+  labels:
+    app : my-k8s-mywebsit
+    owner: AntonGainullin
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      project: mywebsrep
+  template:
+    metadata:
+      labels:
+        project: mywebsrep
+    spec:
+      containers:
+        - name : myweb1rep
+          image: antongaynullin/mywebsit:latest
+          ports:
+            - containerPort: 8080

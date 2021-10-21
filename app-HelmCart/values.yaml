@@ -1,0 +1,4 @@
+container:
+  image: antongaynullin/mywebsit:latest
+
+replicaCount: 2

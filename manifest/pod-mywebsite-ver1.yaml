@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myweb
+spec:
+  containers:
+  - image: antongaynullin/mywebsit:latest
+    name: conteinersite
+    ports:
+    - containerPort: 8080
